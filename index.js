@@ -33,7 +33,7 @@ bot.on('message', (ctx) => {
         })
     } else if (ctx.message.text) {
         const magnetRegex = /^magnet.+$/i;
-        if (magnetRegex.text(ctx.message.text)) {
+        if (magnetRegex.test(ctx.message.text)) {
             transmission.addUrl(ctx.message.text, (err, arg) => {
                 if (err) {
                     ctx.reply("Link parse error");
