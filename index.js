@@ -19,11 +19,13 @@ bot.on('message', (ctx) => {
             let extension = fileName.split('.').pop();
             if (extension === 'torrent') {
                 try {
-                    const newFile = fs.createWriteStream(`${config.torrentsFolderPath}/${fileName}`);
-                    https.get(fileLink, (response) => {
-                        response.pipe(newFile);
+                    transmission.addUrl(fileLink, (err, arg) => {
+                        if (err) {
+                            ctx.reply("Link parse error");
+                        } else {
+                            ctx.reply('Torrent file added!');
+                        }
                     });
-                    ctx.reply('Torrent file downloaded!');
                 } catch (ex) {
                     ctx.reply('File download error.');
                 }
